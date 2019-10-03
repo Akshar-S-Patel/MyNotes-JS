@@ -13,13 +13,18 @@
 </head>
 
 <body style="background-color: #F8F9FA">
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">MyNotes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"> Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">Home</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -28,6 +33,8 @@
             </form>
         </div>
     </nav>
+
+
 
     <div class="container my-3 mx-5">
         <div class="card" style="border: none;">
@@ -45,26 +52,13 @@
         </div>
     </div>
 
-    <!-- <hr>
-    <h3 class="mx-5"> Your Notes</h3>
-    <button id="deleteAll" style="float: right;" type="button" class="btn btn-outline-danger mx-5"> Delete All</button>
-    <hr> -->
+    <hr>
+    <div >
+        <h3 class="mx-5" style="margin: 0; display: inline-block;"> Your Notes</h3>
+        <button id="deleteAll" style="float: right;" type="button" class="btn btn-outline-danger mx-5"> Delete All</button>
+    </div>
+    <hr>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <h1 class="navbar-brand" href="#">Your Notes</h1>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <button id="deleteAll" style="float: right;" type="button" class="btn btn-outline-danger mx-5"> Delete
-                    All</button>
-            </form>
-        </div>
-    </nav>
 
     <div id="allNotes" class="row container-fluid mx-4">
     </div>
