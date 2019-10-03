@@ -43,12 +43,13 @@ document.getElementById("addNote").addEventListener("click", function () {
 });
 
 document.getElementById("textBox").addEventListener("input", function () {
+    let element1 = document.getElementsByClassName('card-title');
     Array.from(document.getElementsByClassName("card-text")).forEach(function (element, index) {
-        if (element.innerHTML.trim().toLowerCase().includes(document.getElementById("textBox").value)) {
-            document.getElementsByClassName("myNotes")[index].style.display = "block";
-        } else {
-            document.getElementsByClassName("myNotes")[index].style.display = "none";
-        }
+    if (element.innerHTML.trim().toLowerCase().includes(document.getElementById("textBox").value) || element1[index].innerHTML.trim().toLowerCase().includes(document.getElementById("textBox").value) ){
+        document.getElementsByClassName("myNotes")[index].style.display = "block";
+    } else {
+        document.getElementsByClassName("myNotes")[index].style.display = "none";
+    }
     });
 });
 
@@ -60,8 +61,57 @@ document.getElementById("deleteAll").addEventListener("click", function () {
     ifNoNote();
 });
 
+document.getElementById("notesView").addEventListener("click", function() {
+    allMyNotes.innerHTML = "";
+    if(document.getElementById("notesView").innerHTML == "Grid View") {
+        allMyNotes.classList.remove("mx-2");
+        allMyNotes.classList.add("row");  
+        allMyNotes.classList.add("container-fluid");
+        allMyNotes.classList.add("mx-4");
+        document.getElementById("notesView").innerHTML = "List View";
+        arrNotes.forEach(function (element, index) {
+            let html = `
+            <div class="myNotes card mx-2 my-2" style="width: 14rem;">
+                <div class="card-body">
+                    <h5 id="Title-${index}" class="card-title" ondblclick="editable(id)" onblur="nonEditable(id)">${arrTitle[index]} </h5>
+                    <p id="Note-${index}" class="card-text" ondblclick="editable(id)" onblur="nonEditable(id)">
+                        ${element}
+                    </p>
+                <button id="${index}" type="button" class="btn btn-outline-danger" onclick="deleteNote(id)"> Delete </button>
+                </div>
+            </div>
+            `;
+            allMyNotes.innerHTML += html;
+        })
+    } else {
+        allMyNotes.classList.remove("row");  
+        allMyNotes.classList.remove("container-fluid");
+        allMyNotes.classList.remove("mx-4");
+        allMyNotes.classList.add("mx-2");
+        document.getElementById("notesView").innerHTML = "Grid View";
+        arrNotes.forEach(function (element, index) {
+            let html = `
+            <div class="myNotes card mx-2 my-2">
+                <div class="card-body">
+                    <h5 style="margin: 0; display: inline-block; float: left;" id="Title-${index}" class="card-title" ondblclick="editable(id)" onblur="nonEditable(id)">${arrTitle[index]}</h5>
+                    <h5 style="margin: 0; display: inline-block; float: left;"> &nbsp; :- &nbsp;</h5>
+                    <p style="float: left;"id="Note-${index}" class="card-text" ondblclick="editable(id)" onblur="nonEditable(id)">
+                        ${element}
+                    </p>
+                <button style="float: right;" id="${index}" type="button" class="btn btn-outline-danger" onclick="deleteNote(id)"> Delete </button>
+                </div>
+            </div>
+            `;
+            allMyNotes.innerHTML += html;
+        })
+    }
+})
+
 function getAllNotes() {
     allMyNotes.innerHTML = "";
+    allMyNotes.classList.add("row");  
+    allMyNotes.classList.add("container-fluid");
+    allMyNotes.classList.add("mx-4");
     arrNotes.forEach(function (element, index) {
         let html = `
         <div class="myNotes card mx-2 my-2" style="width: 14rem;">
@@ -105,32 +155,3 @@ function nonEditable(id) {
     localStorage.setItem("Notes", JSON.stringify(arrNotes));
     localStorage.setItem("Titles", JSON.stringify(arrTitle));
 }
-
-
-/** 
-`
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="toast-header">
-    <img src="..." class="rounded mr-2" alt="...">
-    <strong class="mr-auto" id="Title-${index}" ondblclick="editable(id)" onblur="nonEditable(id)">${arrTitle[index]}</strong>
-    <small>11 mins ago</small>
-    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="toast-body" id="Note-${index}" ondblclick="editable(id)" onblur="nonEditable(id)"> ${element} </div>
-</div>
-`
-
-`
-<div class="myNotes card mx-2 my-2" style="width: 14rem;">
-    <div class="card-body">
-        <h5 id="Title-${index}" class="card-title" ondblclick="editable(id)" onblur="nonEditable(id)">${arrTitle[index]} </h5>
-        <p id="Note-${index}" class="card-text" ondblclick="editable(id)" onblur="nonEditable(id)">
-            ${element}
-        </p>
-    <button id="${index}" type="button" class="btn btn-outline-danger" onclick="deleteNote(id)"> Delete </button>
-    </div>
-</div>
-`
-*/
